@@ -78,7 +78,7 @@ void World::render(gl::Program& p) const {
     using namespace mathfu;
     
     GLint mdlLoc = p.getUniform("model");
-    mat4 mdl = mat4::FromTranslationVector({0.0, 0.0, (float)offset_});
+    mat4 mdl = mat4::FromTranslationVector(vec3(0.0, 0.0, offset_));
     
     vao_.bind();
     vao_.enableVertexAttrib(0);
@@ -95,11 +95,11 @@ void World::render(gl::Program& p) const {
         vao_.vertexAttribPointer(0, 3, GL_FLOAT);
         glDrawElements(GL_TRIANGLE_STRIP, (16 * 15 * 2) + 14, GL_UNSIGNED_SHORT, nullptr);
 
-        mdl *= mat4::FromTranslationVector({0.0, 0.0, -16.0});
+        mdl *= mat4::FromTranslationVector(vec3(0.0, 0.0, -16.0));
     }
 
     //offset lines slightly to avoid z-fighting
-    mdl = mat4::FromTranslationVector({0.0, 0.01, (float)offset_});
+    mdl = mat4::FromTranslationVector(vec3(0.0, 0.01, offset_));
 
     //hue'ed
     vec4 color;
@@ -117,7 +117,7 @@ void World::render(gl::Program& p) const {
         vao_.vertexAttribPointer(0, 3, GL_FLOAT);
         glDrawElements(GL_LINE_STRIP, (32 * 16) + 31, GL_UNSIGNED_SHORT, nullptr);
 
-        mdl *= mat4::FromTranslationVector({0.0, 0.0, -16.0});
+        mdl *= mat4::FromTranslationVector(vec3(0.0, 0.0, -16.0));
     }
 }
 

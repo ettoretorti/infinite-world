@@ -11,8 +11,10 @@
 namespace infinite {
 
 static thread_local std::default_random_engine re(std::chrono::high_resolution_clock::now().time_since_epoch().count());
-static thread_local std::uniform_int_distribution<unsigned char> ud(0, 128);
-static thread_local std::binomial_distribution<unsigned char> bd(127, 0.5);
+
+//unsigned short instead of unsigned char because MSVC fails to compile it otherwise
+static thread_local std::uniform_int_distribution<unsigned short> ud(0, 128);
+static thread_local std::binomial_distribution<unsigned short> bd(127, 0.5);
 static thread_local auto uniform = std::bind(ud, re);
 static thread_local auto binomial = std::bind(bd, re);
 
@@ -20,7 +22,7 @@ Chunk::Chunk() {
 
     for(int i = 0; i < 16; i++) {
         for(int j = 0; j < 16; j++) {
-            heights_[i][j] = uniform() + binomial();
+            heights_[i][j] = (unsigned char) (uniform() + binomial());
         }
     }
 }
