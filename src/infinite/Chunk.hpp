@@ -18,8 +18,8 @@ public:
                       mathfu::Vector<float, 2> yRange,
                       mathfu::Vector<float, 2> zRange) const;
 
-    static void fillGridIndices(gl::Buffer& glShortIndices);
-    static void fillTriangleFanIndices(gl::Buffer& glShortIndices);
+    static unsigned fillGridIndices(gl::Buffer& glShortIndices);
+    static unsigned fillTriangleFanIndices(gl::Buffer& glShortIndices);
 private:
     unsigned char heights_[16][16];
 };

@@ -54,7 +54,7 @@ void Chunk::fillGLBuffer(gl::Buffer& verts,
     verts.data(3 * 16 * 16 * sizeof(GLfloat), buffer, GL_STATIC_DRAW);
 }
 
-void Chunk::fillGridIndices(gl::Buffer& glShortIndices) {
+unsigned Chunk::fillGridIndices(gl::Buffer& glShortIndices) {
     //32 lines of length 16 each, with 32 primitive restarts between them
     GLushort* buffer = new GLushort[32 * 16 + 32];
     int cur = 0;
@@ -80,9 +80,11 @@ void Chunk::fillGridIndices(gl::Buffer& glShortIndices) {
     glShortIndices.data((32 * 16 + 31) * sizeof(GLushort), buffer, GL_STATIC_DRAW);
 
     delete[] buffer;
+
+    return 32 * 16 + 31;
 }
 
-void Chunk::fillTriangleFanIndices(gl::Buffer& glShortIndices) {
+unsigned Chunk::fillTriangleFanIndices(gl::Buffer& glShortIndices) {
     GLushort* buffer = new GLushort[(16 * 15 * 2) + 15];
     int cur = 0;
 
@@ -99,6 +101,8 @@ void Chunk::fillTriangleFanIndices(gl::Buffer& glShortIndices) {
     glShortIndices.data(((16 * 15 * 2) + 14) * sizeof(GLushort), buffer, GL_STATIC_DRAW);
 
     delete[] buffer;
+
+    return 16 * 15 * 2 + 14;
 }
 
 }
