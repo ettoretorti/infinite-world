@@ -19,7 +19,6 @@ static thread_local auto uniform = std::bind(ud, re);
 static thread_local auto binomial = std::bind(bd, re);
 
 Chunk::Chunk() {
-
     for(int i = 0; i < 16; i++) {
         for(int j = 0; j < 16; j++) {
             heights_[i][j] = (unsigned char) (uniform() + binomial());

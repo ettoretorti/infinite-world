@@ -48,7 +48,7 @@ static void hue2RGB(float h, float& r, float& g, float &b) {
     else if ( i == 2 ) { r = 0.0; g = 1.0; b = v3;  }
     else if ( i == 3 ) { r = 0.0; g = v2;  b = 1.0; }
     else if ( i == 4 ) { r = v3;  g = 0.0; b = 1.0; }
-    else                   { r = 1.0; g = 0.0; b = v2;  }
+    else               { r = 1.0; g = 0.0; b = v2;  }
 }
 
 void World::simulate(double units) {
@@ -66,7 +66,7 @@ void World::simulate(double units) {
 
         newChunk.fillGLBuffer(chunks_[start_],
                               {-8.0,8.0},
-                              {0.0, 4.0},
+                              { 0.0,4.0},
                               {-8.0,8.0});
         lastChunk_ = newChunk;
 
