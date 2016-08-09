@@ -79,6 +79,10 @@ void Buffer::bind() const {
 	bufBind(target_, name_);
 }
 
+void Buffer::unbind(GLenum target) {
+	bufBind(target, 0);
+}
+
 void Buffer::data(GLsizeiptr size, const GLvoid* data, GLenum usage) {
 	if(GLEW_ARB_direct_state_access) {
 		glNamedBufferData(name_, size, data, usage);

@@ -91,8 +91,7 @@ void World::render(gl::Program& p) const {
     for(int i = start_, j = 0; j < 16; i = (i + 1) % 16, j++) {
         glUniformMatrix4fv(mdlLoc, 1, false, &mdl[0]);
 
-        chunks_[i].bind();
-        vao_.vertexAttribPointer(0, 3, GL_FLOAT);
+        vao_.vertexAttribPointer(chunks_[i], 0, 3, GL_FLOAT);
         glDrawElements(GL_TRIANGLE_STRIP, (16 * 15 * 2) + 14, GL_UNSIGNED_SHORT, nullptr);
 
         mdl *= mat4::FromTranslationVector(vec3(0.0, 0.0, -16.0));
@@ -113,8 +112,7 @@ void World::render(gl::Program& p) const {
     for(int i = start_, j = 0; j < 16; i = (i + 1) % 16, j++) {
         glUniformMatrix4fv(mdlLoc, 1, false, &mdl[0]);
 
-        chunks_[i].bind();
-        vao_.vertexAttribPointer(0, 3, GL_FLOAT);
+        vao_.vertexAttribPointer(chunks_[i], 0, 3, GL_FLOAT);
         glDrawElements(GL_LINE_STRIP, (32 * 16) + 31, GL_UNSIGNED_SHORT, nullptr);
 
         mdl *= mat4::FromTranslationVector(vec3(0.0, 0.0, -16.0));

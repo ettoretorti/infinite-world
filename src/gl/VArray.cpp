@@ -1,5 +1,7 @@
 
 #include "VArray.hpp"
+
+#include "Buffer.hpp"
 #include <GL/glew.h>
 #include <utility>
 
@@ -44,6 +46,10 @@ void VArray::bind() const {
 	vaoBind(name_);
 }
 
+void VArray::unbind() {
+	vaoBind(0);
+}
+
 void VArray::enableVertexAttrib(GLuint index) {
 	if(GLEW_ARB_direct_state_access) {
 		glEnableVertexArrayAttrib(name_, index);
@@ -64,14 +70,16 @@ void VArray::disableVertexAttrib(GLuint index) {
 	glDisableVertexAttribArray(index);
 }
 
-void VArray::vertexAttribPointer(GLuint index, GLint size, GLenum type,
-                                   GLboolean normalized, GLsizei stride, const GLvoid* pointer) {
-	vaoBind(name_);
-	glVertexAttribPointer(index, size, type, normalized, stride, pointer);
-}
+void VArray::vertexAttribPointer(const Buffer& b, GLuint index, GLint size, GLenum type,
+                                   GLboolean normalized, GLsizei stride, GLintptr offset) {
+	Buffer& buf = const_cast<Buffer&>(b);
 
-void VArray::vertexAttribPointer(GLuint index, GLint size, GLenum type) {
-	vertexAttribPointer(index, size, type, GL_FALSE, 0, (void*)0);
+	vaoBind(name_);
+	GLuint oldT = buf.target();
+	buf.target() = GL_ARRAY_BUFFER;
+	buf.bind();
+	glVertexAttribPointer(index, size, type, normalized, stride, (void*)offset);
+	buf.target() = oldT;
 }
 
 }

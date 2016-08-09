@@ -4,6 +4,8 @@
 
 namespace gl {
 
+class Buffer;
+
 class VArray {
 public:
 	VArray();
@@ -14,13 +16,15 @@ public:
 	~VArray();
 
 	void bind() const;
+	static void unbind();
 
 	void enableVertexAttrib(GLuint index);
 	void disableVertexAttrib(GLuint index);
 
-	void vertexAttribPointer(GLuint index, GLint size, GLenum type,
-			         GLboolean normalized, GLsizei stride, const GLvoid* pointer);
-	void vertexAttribPointer(GLuint index, GLint size, GLenum type);
+	void vertexAttribPointer(const Buffer& b, GLuint index, GLint size, GLenum type,
+			         GLboolean normalized = GL_FALSE,
+				 GLsizei stride = 0,
+				 GLintptr offset = 0);
 
 private:
 	GLuint name_;
